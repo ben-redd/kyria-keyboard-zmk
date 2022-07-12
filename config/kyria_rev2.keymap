@@ -10,6 +10,7 @@
 #define DEFAULT 0
 #define LOWER   1
 #define RAISE   2
+#define COLEMAK 3
 
 / {
 	keymap {
@@ -17,11 +18,15 @@
 
 		default_layer {
 /*	QWERTY	
-* ---------------------------------------------------------------------------------------------------------------------------------
-* |  ESC  |  Q  |  W  |  E   |  R   |  T   |                                          |  Y   |  U    |  I    |  O   |   P   | DELETE |
-* |  TAB  |  A  |  S  |  D   |  F   |  G   |                                          |  H   |  J    |  K    |  L   |   ;   |   '  |
-* | SHIFT |  Z  |  X  |  C   |  V   |  B   |    LEFT | RIGHT |        | UP | DOWN |  N   |  M    |  ,    |  .   |   /   | SHIFT |
-*                     | GUI  | CTRL  | L-ALT |  GUI  | LOWER |        | RAISE |  SPACE  | ENTER  | BSPC  | R-ALT |
+* .---------------------------------------------------------------------------------------------------------------------------.
+* |  ESC  |  Q  |  W  |  E   |  R   |  T   |                                   |  Y    |  U    |  I    |  O   |   P  | DELETE |
+* |---------------------------------------------------------------------------------------------------------------------------|
+* |  TAB  |  A  |  S  |  D   |  F   |  G   |                                   |  H    |  J    |  K    |  L   |   ;  |   '    |
+* |---------------------------------------------------------------------------------------------------------------------------|
+* | SHIFT |  Z  |  X  |  C   |  V   |  B   | LEFT | RIGHT |    |  UP   | DOWN  |  N    |  M    |  ,    |  .   |   /  | SHIFT  |
+* |---------------------------------------------------------------------------------------------------------------------------|
+* |                   | GUI  | CTRL | LALT | LGUI | LOWER |    | RAISE | SPACE | ENTER | BSPC  | R-ALT |                      |
+* .---------------------------------------------------------------------------------------------------------------------------.
 */
 			bindings = <
 	&kp ESC   &kp Q &kp W &kp E &kp R &kp T                                                &kp Y &kp U  &kp I     &kp O   &kp P    &kp DELETE
@@ -36,17 +41,21 @@
 
  		lower_layer {
 /*	QWERTY		
-* ---------------------------------------------------------------------------------------------------------------------------------
-* |  ESC  |  Q  |  W  |  E   |  R   |  T   |                                          |  Y   |  U    |  I    |  O   |   P   |   DELETE  |
-* |  TAB  |  A  |  S  |  D   |  F   |  G   |                                          |  H   |  LPAR |  RPAR |  LBRACE | RBRACE  |  '  |
-* | SHIFT |  Z  |  X  |  C   |  V   |  B   | L SHIFT | L SHIFT |  | L SHIFT | L SHIFT |  N   |  LBKT | RBKT  |  .   |   \   | CTRL |
-*                     | GUI  | DEL  | RET  |  SPACE  |   ESC   |  |   RET   |  SPACE  | TAB  | BSPC  | R-ALT |
+* .---------------------------------------------------------------------------------------------------------------------------.
+* |  Toggle Colemak |  Q  |  W  |  E   |  R   |  T  |                                    | Play/pause |  U   |  I  |  O  |  P  | DELETE |
+* |---------------------------------------------------------------------------------------------------------------------------|
+* |  TAB  |  A  |  S  |  D   |  F   |  G  |                                         |  STOP |  (   |  )  |  {  |  }  |   `    |
+* |---------------------------------------------------------------------------------------------------------------------------|
+* | SHIFT |  Z  |  X  |  C   |  V   |  B  | LEFT  | RIGHT |         |  UP   | DOWN  | RECORD |  [   |  ]  |  <  |  >  | SHIFT  |
+* |---------------------------------------------------------------------------------------------------------------------------|
+* |                   | GUI  | CTRL | ALT | SPACE | LOWER |         | RAISE | SPACE | ENTER | BSPC | ALT |                    |
+* .---------------------------------------------------------------------------------------------------------------------------.
 */
  			bindings = <
- 	&kp ESC   &kp Q &kp N1 &kp N2 &kp N3 &kp T                                                &kp Y &kp U  &kp I     &kp O   &kp P    &kp DELETE
- 	&kp TAB   &kp A &kp N4 &kp N5 &kp N6 &kp G                                                &kp H &kp LPAR &kp RPAR &kp LBRC &kp RBRC &kp DQT
- 	&kp LSHFT &kp Z &kp N7 &kp N8 &kp N9 &kp N0 &kp LEFT &kp RIGHT         &kp UP &kp DOWN &kp N &kp LBKT &kp RBKT &kp DOT &kp BSLH &kp LSHFT
-	            &kp LGUI &kp LCTRL &kp LALT &kp LGUI &mo LOWER         &mo RAISE  &kp SPACE  &kp ENTER &kp BSPC &kp RALT
+ 	&tog COLEMAK &kp Q &kp N1 &kp N2 &kp N3 &kp T                                                &kp C_PP &kp U  &kp I     &kp O   &kp P    &kp DELETE
+ 	&kp TAB   &kp A &kp N4 &kp N5 &kp N6 &kp G                                                &kp C_STOP &kp LPAR &kp RPAR &kp LBRC &kp RBRC &kp GRAVE
+ 	&kp LSHFT &kp Z &kp N7 &kp N8 &kp N9 &kp N0 &kp LEFT &kp RIGHT         &kp UP &kp DOWN &kp C_REC &kp LBKT &kp RBKT &kp LT &kp GT &kp LSHFT
+	                &kp LGUI &kp LCTRL &kp LALT &kp LGUI &mo LOWER         &mo RAISE  &kp SPACE  &kp ENTER &kp BSPC &kp RALT
  			>;
 
  			sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
@@ -54,21 +63,53 @@
 
  		raise_layer {
 /*	QWERTY		
-* ---------------------------------------------------------------------------------------------------------------------------------
-* |  ESC  |  Q  |  W  |  E   |  R   |  T   |                                          |  Y   |  U    |  I    |  O   |   P   |   DELETE  |
-* |  TAB  |  A  |  S  |  D   |  F   |  G   |                                          |  H   |  LPAR |  RPAR |  LBRACE | RBRACE  |  '  |
-* | SHIFT |  Z  |  X  |  C   |  V   |  B   | L SHIFT | L SHIFT |  | L SHIFT | L SHIFT |  N   |  LBKT | RBKT  |  .   |   \   | CTRL |
-*                     | GUI  | DEL  | RET  |  SPACE  |   ESC   |  |   RET   |  SPACE  | TAB  | BSPC  | R-ALT |
+* .---------------------------------------------------------------------------------------------------------------------------.
+* |  ESC  |  Q  |  W  |  E   |  R   |  T  |                                         |  Y    |  U   |  I  |  O  |  P  | DELETE |
+* |---------------------------------------------------------------------------------------------------------------------------|
+* |  TAB  |  A  |  S  |  D   |  F   |  G  |                                         |  H    |  (   |  )  |  {  |  }  |   `    |
+* |---------------------------------------------------------------------------------------------------------------------------|
+* | SHIFT |  Z  |  X  |  C   |  V   |  B  | LEFT  | RIGHT |         |  UP   | DOWN  |  N    |  [   |  ]  |  <  |  >  | SHIFT  |
+* |---------------------------------------------------------------------------------------------------------------------------|
+* |                   | GUI  | CTRL | ALT | SPACE | LOWER |         | RAISE | SPACE | ENTER | BSPC | ALT |                    |
+* .---------------------------------------------------------------------------------------------------------------------------.
 */
  			bindings = <
  	&kp ESC   &kp Q &kp N1 &kp N2 &kp N3 &kp T                                                &kp Y &kp U  &kp I     &kp O   &kp P    &kp DELETE
- 	&kp TAB   &kp A &kp N4 &kp N5 &kp N6 &kp G                                                &kp H &kp LPAR &kp RPAR &kp LBRC &kp RBRC &kp DQT
- 	&kp LSHFT &kp Z &kp N7 &kp N8 &kp N9 &kp N0 &kp LEFT &kp RIGHT         &kp UP &kp DOWN &kp N &kp LBKT &kp RBKT &kp DOT &kp BSLH &kp LSHFT
-	            &kp LGUI &kp LCTRL &kp LALT &kp LGUI &mo LOWER         &mo RAISE  &kp SPACE  &kp ENTER &kp BSPC &kp RALT
+ 	&kp TAB   &kp A &kp N4 &kp N5 &kp N6 &kp G                                                &kp H &kp LPAR &kp RPAR &kp LBRC &kp RBRC &kp GRAVE
+ 	&kp LSHFT &kp Z &kp N7 &kp N8 &kp N9 &kp N0 &kp LEFT &kp RIGHT         &kp UP &kp DOWN &kp N &kp LBKT &kp RBKT &kp LT &kp GT &kp LSHFT
+	                &kp LGUI &kp LCTRL &kp LALT &kp LGUI &mo LOWER         &mo RAISE  &kp SPACE  &kp ENTER &kp BSPC &kp RALT
  			>;
 
  			sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
  		};
+
+
+		colemak_layer {
+/*	COLEMAK	
+* .---------------------------------------------------------------------------------------------------------------------------.
+* |  ESC  |  Q  |  W  |  F   |  P   |  G   |                                   |  J    |  L    |  U    |  Y   |   ;  | DELETE |
+* |---------------------------------------------------------------------------------------------------------------------------|
+* |  TAB  |  A  |  R  |  S   |  T   |  D   |                                   |  H    |  N    |  E    |  I   |   O  |   '    |
+* |---------------------------------------------------------------------------------------------------------------------------|
+* | SHIFT |  Z  |  X  |  C   |  V   |  B   | LEFT | RIGHT |    |  UP   | DOWN  |  K    |  M    |  ,    |  .   |   /  | SHIFT  |
+* |---------------------------------------------------------------------------------------------------------------------------|
+* |                   | GUI  | CTRL | LALT | LGUI | LOWER |    | RAISE | SPACE | ENTER | BSPC  | R-ALT |                      |
+* .---------------------------------------------------------------------------------------------------------------------------.
+*/
+			bindings = <
+	&kp ESC   &kp Q &kp W &kp F &kp P &kp G                                                &kp J &kp L  &kp U     &kp Y   &kp SEMI    &kp DELETE
+	&kp TAB   &kp A &kp R &kp S &kp T &kp D                                                &kp H &kp N  &kp E     &kp I   &kp O &kp SQT
+	&kp LSHFT &kp Z &kp X &kp C &kp V &kp B &kp LEFT &kp RIGHT         &kp UP &kp DOWN &kp K &kp M  &kp COMMA &kp DOT &kp FSLH &kp LSHFT
+	            &kp LGUI &kp LCTRL &kp LALT &kp LGUI &mo LOWER         &mo RAISE  &kp SPACE  &kp ENTER &kp BSPC &kp RALT
+			>;
+
+			sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
+
+
+		}
+
+
+
 
 	};
 };
